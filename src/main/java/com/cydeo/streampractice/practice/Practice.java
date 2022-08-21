@@ -228,6 +228,14 @@ public class Practice {
                })
                .max(comparing(Employee::getSalary)).orElseThrow().getSalary();
 
+       //2. way
+//        return employeeService.readAll().stream()
+//                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+//                .map(Employee::getSalary)
+//                .distinct()
+//                .skip(1)
+//                .findFirst().orElseThrow();
+
     }
 
     // Display the employee(s) who gets the second maximum salary todo
@@ -249,6 +257,10 @@ public class Practice {
                 .map(Employee::getSalary)
                 .reduce((t1,t2)-> t1<t2 ? t1 : t2)
                 .get();
+
+//  2.way      return employeeService.readAll().stream()
+//                .min(Comparator.comparing(Employee::getSalary))
+//                .get().getSalary();
     }
 
     // Display the employee(s) who gets the minimum salary
@@ -275,7 +287,15 @@ public class Practice {
                     }
                 })
                 .min(comparing(Employee::getSalary)).orElseThrow().getSalary();
+
+//  2.way      return employeeService.readAll().stream()
+//                .map(Employee::getSalary)
+//                .sorted()
+//                .distinct()
+//                .skip(1)
+//                .findFirst().get();
     }
+
 
     // Display the employee(s) who gets the second minimum salary
     public static List<Employee> getSecondMinSalaryEmployee() {
@@ -319,7 +339,8 @@ public class Practice {
 
     // Display the total number of the departments
     public static Long getTotalDepartmentsNumber() {
-        return (long) departmentService.readAll().size();
+
+        return (long) departmentService.readAll().size(); //departmentService.readAll().stream().count();
     }
 
     // Display the employee whose first name is 'Alyssa' and manager's first name is 'Eleni' and department name is 'Sales'
@@ -395,7 +416,8 @@ public class Practice {
     // Display all the employees whose department id is 50, 80, or 100
     public static List<Employee> getAllEmployeesDepartmentIdIs50or80or100() {
        return employeeService.readAll().stream()
-               .filter(employee -> employee.getDepartment().getId() ==50 || employee.getDepartment().getId() ==80 || employee.getDepartment().getId() ==100)
+               .filter(employee -> employee.getDepartment().getId() ==50
+                       || employee.getDepartment().getId() ==80 || employee.getDepartment().getId() ==100)
                .collect(Collectors.toList());
     }
 
